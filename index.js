@@ -8,9 +8,15 @@ const path2Uri = function (path) {
     return hasProtocol ? path : fileUrl(path);
 }
 
-const originalFileUri = path2Uri(process.argv[2]);
-console.log(originalFileUri);
+function getFileList() {
+  return process.argv.slice(2);
+}
 
-getUri(originalFileUri)
-    .then(rs => rs.pipe(process.stdout))
-    .catch(console.error);
+const files = getFileList().map(path2Uri);
+const originalFileUri = files.shift();
+
+console.log('Original file:', originalFileUri, 'diffs:', files);
+
+//getUri(originalFileUri)
+//    .then(rs => rs.pipe(process.stdout))
+//    .catch(console.error);

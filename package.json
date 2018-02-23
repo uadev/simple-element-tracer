@@ -9,7 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "./node_modules/mocha/bin/_mocha -- -R spec --colors --recursive --require ./src/log"
+    "test":
+"node index.js https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-1-evil-gemini.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-2-container-and-clone.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-3-the-escape.html"
   },
   "repository": {
     "type": "git",
