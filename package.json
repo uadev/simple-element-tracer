@@ -1,0 +1,28 @@
+{
+  "name": "element-finder",
+  "version": "1.0.0",
+  "description": "Simple tool to track down selected elements on dynamic web pages",
+  "main": "index.js",
+  "dependencies": {
+    "file-url": "^2.0.2",
+    "get-uri": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "./node_modules/mocha/bin/_mocha -- -R spec --colors --recursive --require ./src/log"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uadev/simple-element-tracer.git"
+  },
+  "keywords": [
+    "xml",
+    "crawler"
+  ],
+  "author": "Yuriy Voziy <yuriy.voziy@gmail.com> (http://uadev.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uadev/simple-element-tracer/issues"
+  },
+  "homepage": "https://github.com/uadev/simple-element-tracer#readme"
+}
