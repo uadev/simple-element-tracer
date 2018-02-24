@@ -53,18 +53,17 @@ function readDataFromUri(uri) {
 function $renderCssPath($el) {
 //Probably not the best Path representation, but it works for most cases;
 //TODO think about n-th child representation
-    function $renderEl($el) {
-        function renderId($el) {
-            return $el.attribs.id
-                ? `#${$el.attribs.id}`
-                :'';
+    function $renderEl(el) {
+        return `${el.name}${t$attr `#id${el}`}${t$attr `.class${el}`}`
+    }
+
+    function t$attr(prop, {attribs = {}}) {
+        const sep = prop[0].charAt(0);
+        prop = prop[0].slice(1);
+        if (!attribs[prop]) {
+            return '';
         }
-        function renderClass($el) {
-            return $el.attribs.class
-                ? `.${$el.attribs.class.split(' ').join('.')}`
-                : '';
-        }
-        return `${$el.name}${renderId($el)}${renderClass($el)}`;
+        return `${sep}${attribs[prop].split(' ').join(sep)}`;
     }
 
     var path = [];
