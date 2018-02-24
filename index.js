@@ -1,11 +1,21 @@
-const {promisify} = require('util');
-const fileUrl = require('file-url');
-const getUri = promisify(require('get-uri'));
-const {parse: parseUrl} = require('url');
 
-const sampleElementCSSPath = '#make-everything-ok-button';
+//Logger from the snippet
+//const logger = require('bunyan').createLogger({ name: require('./package.json').name });
+//const log = logger.info
+
+const logger = console;
+const log = logger.log;
+
+const config = {
+    originalSelector: '#make-everything-ok-button'
+}
 
 const path2Uri = function (path) {
+//You may find it's stupid to require file modules like this, but this is the
+//only function that will require those modules
+    const fileUrl = require('file-url');
+    const {parse: parseUrl} = require('url');
+
     const hasProtocol = parseUrl(path).protocol;
     return hasProtocol ? path : fileUrl(path);
 }
@@ -13,7 +23,6 @@ const path2Uri = function (path) {
 function getFileList() {
   return process.argv.slice(2);
 }
-
 
 async function readFromStream(rs) {
     let data = '';
@@ -24,22 +33,49 @@ async function readFromStream(rs) {
     })
 }
 
-function getOriginalElementSigns() {
-
+function findEl(html, selector) {
+    if (!selector) {
+        throw new Error('No selector provided');
+    }
+    return require('cheerio')(selector, html);
 }
 
 function readDataFromUri(uri) {
+    const {promisify} = require('util');
+    const getUri = promisify(require('get-uri'));
     return getUri(uri)
-        .then(readFromStream);
+        .then(readFromStream)
+        .catch(console.error);
+}
+
+function representInPath($el) {
+    return `${$el.name}${$el.attribs.id?'#'+$el.attribs.id:''}${$el.attribs.class?'.'+$el.attribs.class.split(' ').join('.'):''}`;
+}
+
+
+function printCssPath($el) {
+//Probably not the best Path representation, but it works for most cases;
+//TODO think about n-th child representation
+
+    var path = [];
+    path.push(representInPath($el[0]));
+
+    $el.parents().each((i, el) => {
+        path.push(representInPath(el));
+    });
+    log(path.reverse().join(' > '));
 }
 
 (async () => {
     const files = getFileList().map(path2Uri);
     const originalFileUri = files.shift();
 
-    console.log('Original file:', originalFileUri, "\ndiffs:", files);
+    logger.info('Original file:', originalFileUri, "\ndiffs:", files);
 
     const originalFileData = await readDataFromUri(originalFileUri);
-    console.log(originalFileData);
+    const originalEl = findEl(originalFileData, config.originalSelector);
+
+    printCssPath(originalEl);
+
 })();
 

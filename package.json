@@ -4,13 +4,14 @@
   "description": "Simple tool to track down selected elements on dynamic web pages",
   "main": "index.js",
   "dependencies": {
+    "bunyan": "^1.8.12",
+    "cheerio": "^1.0.0-rc.2",
     "file-url": "^2.0.2",
     "get-uri": "^2.0.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test":
-"node index.js https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-1-evil-gemini.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-2-container-and-clone.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-3-the-escape.html"
+    "test": "node index.js https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-1-evil-gemini.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-2-container-and-clone.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-3-the-escape.html"
   },
   "repository": {
     "type": "git",

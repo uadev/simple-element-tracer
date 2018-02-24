@@ -20,5 +20,6 @@ $ node index.js node index.js original.html diff1.html [diff2.html ...  diffN.ht
 [] Add help cli usage text
 [] Add README.md description about matching rules
 [] Implement scoring algorythm
-[] Display result as PATH
+[x] Display result as PATH
+[x] Replacable logger
 [] Add full config module support
