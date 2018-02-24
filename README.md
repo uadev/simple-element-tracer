@@ -23,3 +23,4 @@ $ node index.js node index.js original.html diff1.html [diff2.html ...  diffN.ht
 [x] Display result as PATH  
 [x] Replacable logger  
 [] Add full config module support  
+[] Add support for n-th child in CSSPath
