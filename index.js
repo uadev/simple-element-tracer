@@ -33,7 +33,7 @@ async function readFromStream(rs) {
     })
 }
 
-function findEl(html, selector) {
+function $findEl(html, selector) {
     if (!selector) {
         throw new Error('No selector provided');
     }
@@ -48,22 +48,32 @@ function readDataFromUri(uri) {
         .catch(console.error);
 }
 
-function representInPath($el) {
-    return `${$el.name}${$el.attribs.id?'#'+$el.attribs.id:''}${$el.attribs.class?'.'+$el.attribs.class.split(' ').join('.'):''}`;
-}
 
 
-function printCssPath($el) {
+function $renderCssPath($el) {
 //Probably not the best Path representation, but it works for most cases;
 //TODO think about n-th child representation
+    function $renderEl($el) {
+        function renderId($el) {
+            return $el.attribs.id
+                ? `#${$el.attribs.id}`
+                :'';
+        }
+        function renderClass($el) {
+            return $el.attribs.class
+                ? `.${$el.attribs.class.split(' ').join('.')}`
+                : '';
+        }
+        return `${$el.name}${renderId($el)}${renderClass($el)}`;
+    }
 
     var path = [];
-    path.push(representInPath($el[0]));
+    path.push($renderEl($el[0]));
 
     $el.parents().each((i, el) => {
-        path.push(representInPath(el));
+        path.push($renderEl(el));
     });
-    log(path.reverse().join(' > '));
+    return path.reverse().join(' > ');
 }
 
 (async () => {
@@ -73,9 +83,9 @@ function printCssPath($el) {
     logger.info('Original file:', originalFileUri, "\ndiffs:", files);
 
     const originalFileData = await readDataFromUri(originalFileUri);
-    const originalEl = findEl(originalFileData, config.originalSelector);
+    const $originalEl = $findEl(originalFileData, config.originalSelector);
 
-    printCssPath(originalEl);
+    log($renderCssPath($originalEl));
 
 })();
 
