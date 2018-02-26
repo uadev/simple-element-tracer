@@ -174,13 +174,12 @@ function findAs(original, diffs) {
         found = findEl(fileData, selector)
             .filter( filterHidden )
             .toArray();
-
-        log(uri, "\nFound:", found.length);
+        log("\n" + uri, "\nFound:", found.length);
         found.forEach(el => {log(renderCssPath(el))});
 
         bestMatch = findAs(originalEl, found);
         if (bestMatch) {
-            log(`Best match: ${bestMatch.path} by ${bestMatch.by}`);
+            log(`Best match by ${bestMatch.by}: ${bestMatch.path}`);
         }
     });
 
