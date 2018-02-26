@@ -7,8 +7,16 @@ $ npm i
 ```
 
 # Usage
+
 ```sh
-$ node index.js node index.js original.html diff1.html [diff2.html ...  diffN.html]
+#Use more than one file as argument
+$ node index.js original.html diff1.html [diff2.html ... diffN.html]
+
+#Use folder for diff files
+$ node index.js original.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html
+
+#Use url as sample or diff
+$ node index.js original.html diffs/*
 ```
 # Test
 ```sh
