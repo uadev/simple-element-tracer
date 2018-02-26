@@ -17,7 +17,7 @@ $ npm test
 
 # Example 
 ```sh
-$ node index.js sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-2-container-and-clone.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-3-the-escape.html sample-4-class.html
+$ node index.js original/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-2-container-and-clone.html https://agileengine.bitbucket.io/keFivpUlPMtzhfAy/samples/sample-3-the-escape.html samples/*
 ```
 
 # TODO
