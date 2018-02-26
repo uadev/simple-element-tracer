@@ -173,19 +173,16 @@ function findAs(original, diffs) {
         fileData = await readDataFromUri(uri);
         found = findEl(fileData, selector)
             .filter( filterHidden )
+            .toArray();
+
         log(uri, "\nFound:", found.length);
-        found.each( (i, el) => {log(renderCssPath(el))});
-        bestMatch = findAs(originalEl, found.toArray());
+        found.forEach(el => {log(renderCssPath(el))});
+
+        bestMatch = findAs(originalEl, found);
         if (bestMatch) {
-            log(`Best match ${bestMatch.path} by ${bestMatch.by}`);
+            log(`Best match: ${bestMatch.path} by ${bestMatch.by}`);
         }
     });
-//
-//    log(renderCssPath(originalEl));
-
-//    log(getSelectorById(originalEl));
-//    log(getSelectorByHref(originalEl));
-//    log(getSelectorsByClass(originalEl));
 
 
 })();
