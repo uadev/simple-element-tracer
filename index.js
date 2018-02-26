@@ -11,8 +11,6 @@ const config = {
 }
 
 const path2Uri = function (path) {
-//You may find it's stupid to require file modules like this, but this is the
-//only function that will require those modules
     const fileUrl = require('file-url');
     const {parse: parseUrl} = require('url');
 
@@ -26,7 +24,7 @@ function getFileList() {
 
 async function readFromStream(rs) {
     let data = '';
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
         rs.on('data', chunk => data += chunk);
         rs.on('end', () => resolve(data));
         rs.on("error", reject);
@@ -83,7 +81,7 @@ function renderCssPath(el) {
     return path.reverse().join(' > ');
 }
 
-function generateSelectors(el) {
+function selectorsFromEl(el) {
     return [
         getSelectorById(el),
         getSelectorByHref(el),
@@ -115,7 +113,7 @@ function filterHidden() {
     return $(this).css('display') !== 'none';
 }
 
-function findAs(original, diffs) {
+function findAs(original, diffs, skip = []) {
     const originalPath = renderCssPath(original);
     const originalId = original.attribs.id;
     const originalEl = renderEl(original);
@@ -138,10 +136,14 @@ function findAs(original, diffs) {
         return {by: 'el', path: renderCssPath(exactPath)};
     }
 
-    if (originalHref.length > 1) {
-        exactHref = diffs.find(el => originalHref === el.attribs.href);
-        if (exactHref) {
-            return {by: 'href', path: renderCssPath(exactHref)};
+    if (originalHref.length > 1 && !skip.includes('exactHref')) {
+        exactHref = diffs.filter(el => originalHref === el.attribs.href);
+        if (exactHref.length === 1) {
+            return {by: 'href', path: renderCssPath(exactHref[0])};
+        }
+
+        if (exactHref.length > 1) {
+            return findAs(original, exactHref, ['exactHref']);
         }
     }
 
@@ -165,13 +167,17 @@ function findAs(original, diffs) {
     const originalEl = findEl(originalFileData, config.originalSelector)[0];
     const originalPath = renderCssPath(originalEl);
 
-    const selector = generateSelectors(originalEl);
-    log('Selectors:', generateSelectors(originalEl));
+    const similarsSelector = selectorsFromEl(originalEl);
+    if (!similarsSelector) {
+        log('Original element too small amount of attributes');
+        return ;
+    }
+    log('Selectors:', similarsSelector);
     log("OriginalPath:\n" + renderCssPath(originalEl));
 
     files.map(async (uri) => {
         fileData = await readDataFromUri(uri);
-        found = findEl(fileData, selector)
+        const found = $(similarsSelector, fileData)
             .filter( filterHidden )
             .toArray();
         log("\n" + uri, "\nFound:", found.length);

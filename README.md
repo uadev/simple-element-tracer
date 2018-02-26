@@ -48,4 +48,5 @@ $ node index.js original/sample-0-origin.html https://agileengine.bitbucket.io/k
 [x] Add mathcer by href
 [x] Add matcher by complete class names
 [] Add mathcer by partial class names match
-[] Continue scoring if exactMatchers have more than one result
+[x] Continue scoring if exactMatchers have more than one result(href)
+[] Continue scoring if exactMatchers have more than one result(all)
