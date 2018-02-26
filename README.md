@@ -31,7 +31,7 @@ $ node index.js sample-0-origin.html https://agileengine.bitbucket.io/keFivpUlPM
 [] Add README.md description about matching rules  
 [] Implement scoring algorythm  
 [x] Display result as PATH  
-[x] Replacable logger  
+[x] Replaceable logger  
 [] Add full config module support  
 [] Add support for n-th child in CSSPath
 [x] Add filter for hidden elements
