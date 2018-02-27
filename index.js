@@ -1,10 +1,14 @@
 const $ = require('cheerio');
 //Logger from the snippet
+
 //const logger = require('bunyan').createLogger({ name: require('./package.json').name });
 //const log = logger.info
 
 const logger = console;
 const log = logger.log;
+logger.result = function (...args) {
+    this.log(require('colors/safe').yellow(args));
+}
 
 const config = {
     originalSelector: '#make-everything-ok-button'
@@ -185,7 +189,7 @@ function findAs(original, diffs, skip = []) {
 
         bestMatch = findAs(originalEl, found);
         if (bestMatch) {
-            log(`Best match by ${bestMatch.by}: ${bestMatch.path}`);
+            logger.result(`Best match by ${bestMatch.by}: ${bestMatch.path}`);
         }
     });
 

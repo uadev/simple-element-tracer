@@ -41,12 +41,12 @@ $ node index.js original/sample-0-origin.html https://agileengine.bitbucket.io/k
 [x] Display result as PATH  
 [x] Replaceable logger  
 [] Add full config module support  
-[] Add support for n-th child in CSSPath
-[x] Add filter for hidden elements
-[x] Add matcher by Exact path
-[x] Add matcher by Id
-[x] Add mathcer by href
-[x] Add matcher by complete class names
-[] Add mathcer by partial class names match
-[x] Continue search if exactMatchers have more than one result(href)
-[] Continue scoring if exactMatchers have more than one result(all)
+[] Add support for n-th child in CSSPath  
+[x] Add filter for hidden elements  
+[x] Add matcher by Exact path 
+[x] Add matcher by Id  
+[x] Add mathcer by href  
+[x] Add matcher by complete class names  
+[] Add mathcer by partial class names match  
+[x] Continue search if exactMatchers have more than one result(href)  
+[] Continue scoring if exactMatchers have more than one result(all)  

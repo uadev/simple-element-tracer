@@ -6,6 +6,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "cheerio": "^1.0.0-rc.2",
+    "colors": "^1.1.2",
     "file-url": "^2.0.2",
     "get-uri": "^2.0.1"
   },
