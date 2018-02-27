@@ -169,13 +169,13 @@ function findAs(original, diffs, skip = []) {
 
     const originalFileData = await readDataFromUri(originalFileUri);
     const originalEl = findEl(originalFileData, config.originalSelector)[0];
-    const originalPath = renderCssPath(originalEl);
 
     const similarsSelector = selectorsFromEl(originalEl);
     if (!similarsSelector) {
         log('Original element too small amount of attributes');
         return ;
     }
+
     log('Selectors:', similarsSelector);
     log("OriginalPath:\n" + renderCssPath(originalEl));
 
@@ -188,8 +188,11 @@ function findAs(original, diffs, skip = []) {
         found.forEach(el => {log(renderCssPath(el))});
 
         bestMatch = findAs(originalEl, found);
+
         if (bestMatch) {
             logger.result(`Best match by ${bestMatch.by}: ${bestMatch.path}`);
+        } else {
+            logger.result(`No match found`);
         }
     });
 

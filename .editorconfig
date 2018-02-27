@@ -17,6 +17,7 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 indent_size = 2
+draw_white_space = true
 
 [*.html]
 max_line_length = 200;
