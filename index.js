@@ -1,4 +1,6 @@
 const $ = require('cheerio');
+const required = arg => { throw new Error(`Argument required: ${arg}`) }
+
 //Logger from the snippet
 
 //const logger = require('bunyan').createLogger({ name: require('./package.json').name });
@@ -14,7 +16,7 @@ const config = {
     originalSelector: '#make-everything-ok-button'
 }
 
-const path2Uri = function (path) {
+const path2Uri = function (path = required`path`) {
     const fileUrl = require('file-url');
     const {parse: parseUrl} = require('url');
 
@@ -26,7 +28,7 @@ function getFileList() {
   return process.argv.slice(2);
 }
 
-async function readFromStream(rs) {
+async function readFromStream(rs = required`rs`) {
     let data = '';
     return new Promise((resolve, reject) => {
         rs.on('data', chunk => data += chunk);
@@ -35,14 +37,11 @@ async function readFromStream(rs) {
     })
 }
 
-function findEl(html, selector) {
-    if (!selector) {
-        throw new Error('No selector provided');
-    }
+function findEl(html = required`html`, selector = required`selector`) {
     return $(selector, html);
 }
 
-function readDataFromUri(uri) {
+function readDataFromUri(uri = required`uri`) {
     const {promisify} = require('util');
     const getUri = promisify(require('get-uri'));
     return getUri(uri)
@@ -51,7 +50,7 @@ function readDataFromUri(uri) {
 }
 
 
-function renderEl(el) {
+function renderEl(el = required`el`) {
     return `${el.name}${t$href(el)}${t$attr `#id${el}`}${t$attr `.class${el}`}`
 }
 
@@ -71,7 +70,7 @@ function t$attr(prop, {attribs = {}}) {
     return `${sep}${attribs[prop].split(' ').join(sep)}`;
 }
 
-function renderCssPath(el) {
+function renderCssPath(el = required`el`) {
 //Probably not the best Path representation, but it works for most cases;
 //TODO think about n-th child representation
 
@@ -85,7 +84,7 @@ function renderCssPath(el) {
     return path.reverse().join(' > ');
 }
 
-function selectorsFromEl(el) {
+function selectorsFromEl(el = required`el`) {
     return [
         getSelectorById(el),
         getSelectorByHref(el),
@@ -93,11 +92,11 @@ function selectorsFromEl(el) {
     ].join(',');
 }
 
-function getSelectorById(el) {
+function getSelectorById(el = required`el`) {
     return `${el.name}#${el.attribs.id}`
 }
 
-function getSelectorByHref(el) {
+function getSelectorByHref(el = required`el`) {
     return `${el.name}${t$href(el)}`
 }
 
@@ -117,7 +116,7 @@ function filterHidden() {
     return $(this).css('display') !== 'none';
 }
 
-function findAs(original, diffs, skip = []) {
+function findAs(original = required`original`, diffs = [], skip = []) {
     const originalPath = renderCssPath(original);
     const originalId = original.attribs.id;
     const originalEl = renderEl(original);
